@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ActiveDebugProfile>Logging.Server.Site</ActiveDebugProfile>
     <NameOfLastUsedPublishProfile>server.logging.com</NameOfLastUsedPublishProfile>
+    <ShowAllFiles>false</ShowAllFiles>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
