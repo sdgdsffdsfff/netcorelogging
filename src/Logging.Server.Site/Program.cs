@@ -14,7 +14,7 @@ namespace Logging.Server.Site
             var host = new WebHostBuilder()
                 .UseKestrel()
                 
-                .UseUrls("http://localhost:5000/server")
+                .UseUrls("http://*:88")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
@@ -22,8 +22,9 @@ namespace Logging.Server.Site
                 .Build();
 
             host.Run();
+           
 
-            
+
         }
     }
 }

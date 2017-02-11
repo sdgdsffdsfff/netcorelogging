@@ -21,7 +21,7 @@ namespace Logging.Server.Reciver
                 Console.WriteLine("Starting server on port 7911 ...");
                 server.Serve();
             }
-            catch (Exception e)
+            catch 
             {
                 
             }

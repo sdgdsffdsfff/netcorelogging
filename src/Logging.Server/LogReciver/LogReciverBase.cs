@@ -15,7 +15,7 @@ namespace Logging.Server.Reciver
     {
         private static BlockingActionQueue<TLogPackage> queue;
 
-        private static int server_appId = Convert.ToInt32(ConfigurationManager.AppSettings["AppId"]);
+        private static int server_appId = Convert.ToInt32(Config.AppId);
 
         public LogReciverBase()
         {
@@ -23,8 +23,8 @@ namespace Logging.Server.Reciver
 
         static LogReciverBase()
         {
-            int processTaskNum = Convert.ToInt32(ConfigurationManager.AppSettings["ProcessTaskNum"]);
-            int blockingQueueLength = Convert.ToInt32(ConfigurationManager.AppSettings["BlockingQueueLength"]);
+            int processTaskNum = Convert.ToInt32(Config.ProcessTaskNum);
+            int blockingQueueLength = Convert.ToInt32(Config.BlockingQueueLength);
 
             queue = new BlockingActionQueue<TLogPackage>(processTaskNum, (logPackage) =>
             {

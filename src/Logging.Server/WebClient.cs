@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 
 namespace Logging.Server
@@ -24,6 +25,8 @@ namespace Logging.Server
 
         public WebHeaderCollection Headers { get; set; }
 
+        private Stream _respStream;
+
         public WebClient()
         {
             this._timeout = 60000;
@@ -36,15 +39,15 @@ namespace Logging.Server
 
         public void UploadString(Uri address, string str)
         {
-            GetWebRequest(address, "POST");
+            Request(address, "POST");
         }
 
         public void UploadStringAsync(Uri address, string str)
         {
-            GetWebRequest(address, "POST");
+            Request(address, "POST");
         }
 
-        public string GetWebRequest(Uri address, string method = "GET")
+        public string Request(Uri address, string method = "GET")
         {
 
             var req = HttpWebRequest.CreateHttp(address);
@@ -52,11 +55,12 @@ namespace Logging.Server
             req.Method = method;
             req.Headers = Headers;
             var resp = req.GetResponseAsync().Result;
-            var stream = resp.GetResponseStream();
-            byte[] b = new byte[stream.Length];
-            stream.Read(b, 0, (int)stream.Length);
+             _respStream = resp.GetResponseStream();
+            byte[] b = new byte[_respStream.Length];
+            _respStream.Read(b, 0, (int)_respStream.Length);
 
             var result = System.Text.Encoding.UTF8.GetString(b);
+            _respStream?.Dispose();
             return result;
         }
 
@@ -65,6 +69,7 @@ namespace Logging.Server
 
         public void Dispose()
         {
+            _respStream?.Dispose();
             // throw new NotImplementedException();
         }
     }

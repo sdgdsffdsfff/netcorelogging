@@ -209,6 +209,13 @@ namespace Logging.Server.Site
         [HttpGet, Route("MetricsQuery")]
         public dynamic MetricsQuery()
         {
+            var req = Request;
+
+            var ac = AppContext.BaseDirectory;
+
+           var pb= Request.PathBase.ToString();
+       //   Request.HttpContext.
+       
             string InfluxdbConnectionString = "";
             if (Config.MetricInfluxdbVer == "0.8")
             {

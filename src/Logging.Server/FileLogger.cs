@@ -90,7 +90,7 @@ namespace Logging.Server
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
             }
             finally

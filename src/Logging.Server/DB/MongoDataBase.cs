@@ -6,13 +6,13 @@ namespace Logging.Server.DB
     //server=127.0.0.1:27017,127.0.0.1:27017;SafeMode=false
     public class MongoDataBase
     {
-        public const string DatabaseName = "PLULog";
+        public static string DatabaseName = Config.LogMongodbDBName ?? "Logs";
         //private static MongoServer _server;
 
         public static MongoClient _client;
 
 
-        private static string Mongo = System.Configuration.ConfigurationManager.AppSettings["Mongo"];
+        // private static string Mongo = Config.MongodbHost; //System.Configuration.ConfigurationManager.AppSettings["Mongo"];
 
         //internal static MongoServer GetServer()
         //{
@@ -23,8 +23,8 @@ namespace Logging.Server.DB
         {
             if (_client == null)
             {
-                var mongo = System.Configuration.ConfigurationManager.AppSettings["Mongo"];
-                _client = new MongoClient(mongo);
+                // var mongo = System.Configuration.ConfigurationManager.AppSettings["Mongo"];
+                _client = new MongoClient(Config.MongodbHost);
                 //_client.Settings.WriteConcern = WriteConcern.Acknowledged;
                 //_client.Settings.Freeze();
             }

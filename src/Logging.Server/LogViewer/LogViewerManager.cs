@@ -10,7 +10,7 @@ namespace Logging.Server.Viewer
 
         public static ILogViewer GetLogViewer()
         {
-            string LoggingStorage = ConfigurationManager.AppSettings["LoggingStorage"];
+            string LoggingStorage = Config.LoggingStorageType;// //ConfigurationManager.AppSettings["LoggingStorage"];
 
             if (LoggingStorage.Equals("mongodb", StringComparison.OrdinalIgnoreCase))
             {

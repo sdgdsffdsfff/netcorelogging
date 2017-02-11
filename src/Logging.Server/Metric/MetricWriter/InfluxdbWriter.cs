@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Net;
 using System.Text;
 
 namespace Logging.Server.Metric.Writer
@@ -9,14 +7,13 @@ namespace Logging.Server.Metric.Writer
     {
         //  private readonly InfluxDbClient influxDbClient;
 
-        private static string host = ConfigurationManager.AppSettings["MetricInfluxdbHost"];
-        private static string port = ConfigurationManager.AppSettings["MetricInfluxdbPort"];
-        private static string database = ConfigurationManager.AppSettings["MetricInfluxdbDBName"];
-        private static string user = ConfigurationManager.AppSettings["MetricInfluxdbUser"];
-        private static string pass = ConfigurationManager.AppSettings["MetricInfluxdbPwd"];
+        private static string host = Config.MetricInfluxdbHost;// //ConfigurationManager.AppSettings["MetricInfluxdbHost"];
+        private static string port = Config.MetricInfluxdbPort;// ConfigurationManager.AppSettings["MetricInfluxdbPort"];
+        private static string database = Config.MetricInfluxdbDBName;// ConfigurationManager.AppSettings["MetricInfluxdbDBName"];
+        private static string user = Config.MetricInfluxdbUser;// ConfigurationManager.AppSettings["MetricInfluxdbUser"];
+        private static string pass = Config.MetricInfluxdbPwd;// ConfigurationManager.AppSettings["MetricInfluxdbPwd"];
 
         // private static string influxDbConnectString;
-
 
         /// <summary>
         /// 描述：将LogMetric写入Influxdb数据库
@@ -35,7 +32,6 @@ namespace Logging.Server.Metric.Writer
                 client.UploadStringAsync(new System.Uri(writeUrl), ms);
             }
         }
-
 
         /// <summary>
         /// 描述：将LogMetric写入Influxdb数据库
