@@ -30,4 +30,12 @@ _ReSharper*/
 .vs/
 /debug
 /publish
+/src/Logging.Server.Site/obj
+/src/Logging.Server.Site/bin
+/src/Logging.Server/obj
+/src/Logging.Server/bin
+/src/Logging.Client/obj
+/src/Logging.Client/bin
+/src/Logging.Client.Examples/obj
+/src/Logging.Client.Examples/bin
 
