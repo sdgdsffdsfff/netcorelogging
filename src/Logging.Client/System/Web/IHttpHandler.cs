@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace System.Web
+﻿namespace System.Web
 {
     public interface IHttpHandler
     {
@@ -9,7 +7,7 @@ namespace System.Web
         ///       Drives web processing execution.
         ///    </para>
         /// </devdoc>
-        void ProcessRequest(HttpContext context);
+        void ProcessRequest(Microsoft.AspNetCore.Http.HttpContext context);
 
         /// <devdoc>
         ///    <para>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using System.Threading;
+using System.Web;
 
 namespace Logging.Client
 {
@@ -148,15 +149,21 @@ namespace Logging.Client
         public void Error(string title, Exception ex, Dictionary<string, string> tags)
         {
             string err_msg = string.Empty;
-
-            //if (HttpContent == null)
-            //{
-            err_msg = ex.ToString();
-            //}
-            //else
-            //{
-            //    err_msg = ex.ToString(); // new Error(ex, new HttpContextWrapper(HttpContext.Current)).ToString();
-            //}
+            if (HttpContext.Current == null)
+            {
+                err_msg = new Error(ex, null).ToString();
+            }
+            else
+            {
+                try
+                {
+                    err_msg = new Error(ex, HttpContext.Current).ToString();
+                }
+                catch
+                {
+                    err_msg = new Error(ex, null).ToString();
+                }
+            }
             this.Error(title, err_msg, tags);
         }
 

@@ -18,37 +18,7 @@ namespace Logging.Server.Site
     [Route("api")]
     public class ValuesController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
 
         [HttpGet, Route("GetLogOnOff")]
         public dynamic GetLogOnOff(int appId = 0)
@@ -93,7 +63,7 @@ namespace Logging.Server.Site
             return Newtonsoft.Json.JsonConvert.SerializeObject(on_offs);
         }
 
-        [HttpGet, Route("GetLogOnOffs")]
+        [HttpGet, Route("SetLogOnOff")]
         public dynamic SetLogOnOff(int appId, string appName, int debug = 1, int info = 1, int warn = 1, int error = 1)
         {
             LogOnOff on_off = new LogOnOff();
@@ -209,12 +179,6 @@ namespace Logging.Server.Site
         [HttpGet, Route("MetricsQuery")]
         public dynamic MetricsQuery()
         {
-            var req = Request;
-
-            var ac = AppContext.BaseDirectory;
-
-           var pb= Request.PathBase.ToString();
-       //   Request.HttpContext.
        
             string InfluxdbConnectionString = "";
             if (Config.MetricInfluxdbVer == "0.8")
@@ -247,8 +211,8 @@ namespace Logging.Server.Site
             return resp;
         }
 
-        [HttpGet, Route("Point")]
-        public dynamic Point()
+        [HttpGet, Route("Metric")]
+        public dynamic Metric()
         {
             string name = Request.Query["name"];
             double value = Convert.ToDouble(Request.Query["value"]);

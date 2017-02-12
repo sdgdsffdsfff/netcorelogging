@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Logging.Client.Examples
 {
@@ -29,6 +31,9 @@ namespace Logging.Client.Examples
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+           // services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton(provider => Configuration);
             services.AddMvc();
             services.AddAppSettings();
         }
@@ -51,7 +56,10 @@ namespace Logging.Client.Examples
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+            System.Web.HttpContext.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+
+
+          app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

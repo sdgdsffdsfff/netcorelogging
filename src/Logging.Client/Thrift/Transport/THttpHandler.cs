@@ -19,14 +19,12 @@
  *
  */
 
-using Microsoft.AspNetCore.Http;
 using System.IO;
-using System.Web;
 using Thrift.Protocol;
 
 namespace Thrift.Transport
 {
-    public class THttpHandler : IHttpHandler
+    public class THttpHandler : System.Web.IHttpHandler
     {
         protected TProcessor processor;
 
@@ -60,7 +58,7 @@ namespace Thrift.Transport
         //    ProcessRequest(context.Request.InputStream, context.Response.OutputStream);
         //}
 
-        public void ProcessRequest(HttpContext context)
+        public void ProcessRequest(Microsoft.AspNetCore.Http.HttpContext context)
         {
             context.Response.ContentType = contentType;
             // context.Response.ContentEncoding = encoding;

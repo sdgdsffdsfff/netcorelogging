@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace Logging.Client.Examples.Controllers
 {
@@ -22,11 +23,14 @@ namespace Logging.Client.Examples.Controllers
             //    logger.Error("test", "大大的打算打算大大", null);
             //}
 
+            logger.Error(new Exception("throw exception !!!!!!!!!!!!!!!!"));
+
             for (int i = 0; i < 1000; i++)
             {
                 logger.Metric("csharp_test", 100, new Tags { { "tag1", "val1" } });
             }
-
+            var req = Request;
+            var ctx = System.Web.HttpContext.Current;
             return View();
         }
 
