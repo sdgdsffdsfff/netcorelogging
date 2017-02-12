@@ -39,3 +39,12 @@ _ReSharper*/
 /src/Logging.Client.Examples/obj
 /src/Logging.Client.Examples/bin
 
+obj
+Debug
+Release
+obj
+bin
+obj
+.vs
+bin
+.vs
