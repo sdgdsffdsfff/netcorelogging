@@ -83,10 +83,9 @@ namespace Logging.Server.Metric.Writer
             if (logs == null || logs.Count == 0) { return; }
 
             var jsonstr = GetWriteJsonString(logs);
-            using (var client = new WebClient())
-            {
-                client.UploadStringAsync(this.influxdb, jsonstr);
-            }
+            var client = new WebClient();
+
+            client.UploadStringAsync(this.influxdb, jsonstr).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -99,10 +98,8 @@ namespace Logging.Server.Metric.Writer
         {
             if (logs == null || logs.Count == 0) { return string.Empty; }
             string jsonstr = GetWriteJsonString(logs);
-            using (var client = new WebClient())
-            {
-                return client.UploadString(this.influxdb, jsonstr);
-            }
+            var client = new WebClient();
+            return client.UploadString(this.influxdb, jsonstr);
         }
     }
 }

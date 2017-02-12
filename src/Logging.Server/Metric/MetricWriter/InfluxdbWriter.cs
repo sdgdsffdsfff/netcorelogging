@@ -26,11 +26,8 @@ namespace Logging.Server.Metric.Writer
             if (logs == null || logs.Count == 0) { return; }
             string ms = GetMetricsString(logs);
             string writeUrl = $"http://{host}:{port}/write?db={database}&u={user}&p={pass}";
-            using (var client = new WebClient())
-            {
-                client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-                client.UploadStringAsync(new System.Uri(writeUrl), ms);
-            }
+            var client = new WebClient();
+            client.UploadStringAsync(new System.Uri(writeUrl), ms).ConfigureAwait(false);
         }
 
         ///// <summary>
