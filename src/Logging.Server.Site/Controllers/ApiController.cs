@@ -16,11 +16,11 @@ using System.Linq;
 namespace Logging.Server.Site
 {
     [Route("api")]
-    public class ValuesController : Controller
+    public class ApiController : Controller
     {
-       
 
-        [HttpGet, Route("GetLogOnOff")]
+
+        [HttpGet, HttpPost, Route("GetLogOnOff")]
         public dynamic GetLogOnOff(int appId = 0)
         {
             string resp = string.Empty;
@@ -56,14 +56,14 @@ namespace Logging.Server.Site
             return resp;
         }
 
-        [HttpGet, Route("GetLogOnOffs")]
+        [HttpGet, HttpPost, Route("GetLogOnOffs")]
         public dynamic GetLogOnOffs()
         {
             var on_offs = LogOnOffManager.GetALLLogOnOff();
             return Newtonsoft.Json.JsonConvert.SerializeObject(on_offs);
         }
 
-        [HttpGet, Route("SetLogOnOff")]
+        [HttpGet, HttpPost, Route("SetLogOnOff")]
         public dynamic SetLogOnOff(int appId, string appName, int debug = 1, int info = 1, int warn = 1, int error = 1)
         {
             LogOnOff on_off = new LogOnOff();
@@ -79,7 +79,7 @@ namespace Logging.Server.Site
             return 0;
         }
 
-        [HttpGet, Route("LogViewer")]
+        [HttpGet, HttpPost, Route("LogViewer")]
         public dynamic LogViewer()
         {
             long start = Convert.ToInt64(Request.Query["start"]);
@@ -133,7 +133,7 @@ namespace Logging.Server.Site
             return json_result;
         }
 
-        [HttpGet, Route("StatisticsPeriod")]
+        [HttpGet, HttpPost, Route("StatisticsPeriod")]
         public dynamic StatisticsPeriod()
         {
             long period = Convert.ToInt64(Request.Query["period"]);
@@ -147,7 +147,7 @@ namespace Logging.Server.Site
             return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
         }
 
-        [HttpGet, Route("StatisticsViewer")]
+        [HttpGet, HttpPost, Route("StatisticsViewer")]
         public dynamic StatisticsViewer()
         {
             long start = Convert.ToInt64(Request.Query["start"]);
@@ -158,28 +158,28 @@ namespace Logging.Server.Site
             return Newtonsoft.Json.JsonConvert.SerializeObject(s);
         }
 
-        [HttpGet, Route("GetAppErrOpts")]
+        [HttpGet, HttpPost, Route("GetAppErrOpts")]
         public dynamic GetAppErrOpts()
         {
             var opts = AppErrorthAlerting.GetOptions();
             return Newtonsoft.Json.JsonConvert.SerializeObject(opts);
         }
 
-        [HttpGet, Route("SetAppErrOpts")]
-        public dynamic SetAppErrOpts()
+        [HttpGet, HttpPost, Route("SetAppErrOpts")]
+        public dynamic SetAppErrOpts(int interval = 5, int errorCountLimit = 100, int errorGrowthLimit = 100, string emailReceivers = "")
         {
-            var interval = Convert.ToInt32(Request.Query["interval"]);
-            var errorCountLimit = Convert.ToInt32(Request.Query["errorCountLimit"]);
-            var errorGrowthLimit = Convert.ToInt32(Request.Query["errorGrowthLimit"]);
-            var emailReceivers = Request.Query["emailReceivers"];
+            //var interval = Convert.ToInt32(Request.Query["interval"]);
+            //var errorCountLimit = Convert.ToInt32(Request.Query["errorCountLimit"]);
+            //var errorGrowthLimit = Convert.ToInt32(Request.Query["errorGrowthLimit"]);
+            //var emailReceivers = Request.Query["emailReceivers"];
             AppErrorthAlerting.SetOptions(interval, errorCountLimit, errorGrowthLimit, emailReceivers);
             return "{'status':1}";
         }
 
-        [HttpGet, Route("MetricsQuery")]
+        [HttpGet, HttpPost, Route("MetricsQuery")]
         public dynamic MetricsQuery()
         {
-       
+
             string InfluxdbConnectionString = "";
             if (Config.MetricInfluxdbVer == "0.8")
             {
@@ -198,7 +198,7 @@ namespace Logging.Server.Site
             return resp;
         }
 
-        [HttpGet, Route("MetricTags")]
+        [HttpGet, HttpPost, Route("MetricTags")]
         public dynamic MetricTags()
         {
             string InfluxdbConnectionString = $"{Config.MetricInfluxdbHost}:{Config.MetricInfluxdbPort}/db/{Config.MetricInfluxdbDBName}/series?u={Config.MetricInfluxdbUser}&p={Config.MetricInfluxdbPwd}";
@@ -211,7 +211,7 @@ namespace Logging.Server.Site
             return resp;
         }
 
-        [HttpGet, Route("Metric")]
+        [HttpGet, HttpPost, Route("Metric")]
         public dynamic Metric()
         {
             string name = Request.Query["name"];
