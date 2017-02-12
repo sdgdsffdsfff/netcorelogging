@@ -6,12 +6,12 @@ namespace System.Configuration
 {
     public static class ConfigurationManager
     {
-        public static IConfigurationRoot Configuration { get; set; }
+       // public static IConfigurationRoot Configuration { get; set; }
 
         public static void AddAppSettings(this IServiceCollection services)
         {
             var configuration = services.BuildServiceProvider().GetService<IConfigurationRoot>();
-            Configuration = configuration;
+           // Configuration = configuration;
             AppSettings = new NameValueCollection();
             foreach (var item in configuration.AsEnumerable())
             {

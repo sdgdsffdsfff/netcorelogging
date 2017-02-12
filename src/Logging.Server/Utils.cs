@@ -137,14 +137,23 @@ namespace Logging.Server
             return hash;
         }
 
-
-
         public static string HttpGet(string Url)
         {
+            System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+            var t = client.GetStringAsync(Url);
+            t.Wait();
+            return t.Result;
+        }
+
+        public static string HttpGet2(string Url)
+        {
+
+
             System.IO.Stream respStream = null;
             try
             {
                 System.Net.WebRequest wReq = System.Net.WebRequest.Create(Url);
+                //wReq.Credentials
                 // Get the response instance.
                 System.Net.WebResponse wResp = wReq.GetResponseAsync().Result;
                 respStream = wResp.GetResponseStream();

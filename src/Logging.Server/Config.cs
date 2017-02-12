@@ -7,8 +7,7 @@
         public static readonly string BlockingQueueLength = System.Configuration.ConfigurationManager.AppSettings["BlockingQueueLength"];
         public static readonly string ProcessTaskNum = System.Configuration.ConfigurationManager.AppSettings["ProcessTaskNum"];
         public static readonly string AppId = System.Configuration.ConfigurationManager.AppSettings["AppId"];
-        public static readonly string Port = System.Configuration.ConfigurationManager.AppSettings["Port"];
-        public static readonly string VirtualPath = System.Configuration.ConfigurationManager.AppSettings["VirtualPath"];
+        public static readonly string Listeners = System.Configuration.ConfigurationManager.AppSettings["Listeners"];
         public static readonly string MongodbHost = System.Configuration.ConfigurationManager.AppSettings["MongodbHost"];
         public static readonly string LogMongodbDBName = System.Configuration.ConfigurationManager.AppSettings["LogMongodbDBName"];
 

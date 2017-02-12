@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Logging.Server.Site
 {
@@ -11,20 +7,22 @@ namespace Logging.Server.Site
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
+            var webHost = new WebHostBuilder()
                 .UseKestrel()
-                
-                .UseUrls("http://*:88")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                
+                .UseUrls("http://*:88/server")
                 .Build();
 
-            host.Run();
-           
+            //  var host = webHost.Build();
+            ////  webHost.b
+            //  webHost.UseUrls(Config.Listeners);
 
+            //  host = webHost.UseUrls(Config.Listeners);// .Build();
+            //  host.
 
+            webHost.Run();
         }
     }
 }

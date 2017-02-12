@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Logging.Server
 {
@@ -37,32 +39,48 @@ namespace Logging.Server
             this._timeout = timeout;
         }
 
-        public void UploadString(Uri address, string str)
+        public string UploadString(Uri address, string content)
         {
-            Request(address, "POST");
+            string resp = string.Empty;
+            using (HttpClient client = new HttpClient())
+            {
+                HttpContent c = new StringContent(content);
+                var ret = client.PostAsync(address, c);
+                resp = ret.Result.Content.ReadAsStringAsync().Result;
+            }
+            return resp;
         }
 
-        public void UploadStringAsync(Uri address, string str)
+        public void UploadStringAsync(Uri address, string content)
         {
-            Request(address, "POST");
+            using (HttpClient client = new HttpClient())
+            {
+                HttpContent c = new StringContent(content);
+                var ret = client.PostAsync(address, c);
+                ret.Start();
+            }
         }
 
-        public string Request(Uri address, string method = "GET")
-        {
+        //public string Request(Uri address, string method = "GET")
+        //{
 
-            var req = HttpWebRequest.CreateHttp(address);
-            req.ContinueTimeout = this._timeout;
-            req.Method = method;
-            req.Headers = Headers;
-            var resp = req.GetResponseAsync().Result;
-             _respStream = resp.GetResponseStream();
-            byte[] b = new byte[_respStream.Length];
-            _respStream.Read(b, 0, (int)_respStream.Length);
+        //    var req = HttpWebRequest.CreateHttp(address);
+        //    req.ContinueTimeout = this._timeout;
+        //    req.Method = method;
+        //    if (Headers != null)
+        //    {
+        //        req.Headers = Headers;
+        //    }
 
-            var result = System.Text.Encoding.UTF8.GetString(b);
-            _respStream?.Dispose();
-            return result;
-        }
+        //    var resp = req.GetResponseAsync().Result;
+        //    _respStream = resp.GetResponseStream();
+        //    byte[] b = new byte[_respStream.Length];
+        //    _respStream.Read(b, 0, (int)_respStream.Length);
+
+        //    var result = System.Text.Encoding.UTF8.GetString(b);
+        //    _respStream?.Dispose();
+        //    return result;
+        //}
 
 
 
