@@ -56,6 +56,7 @@ namespace Logging.Server.Site
 
 
             app.Map("/Reciver.ashx", MapHttpReciver);
+            //app.Map("/Reciver", MapHttpReciver);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

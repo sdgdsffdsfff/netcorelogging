@@ -3,7 +3,6 @@ using Logging.Server.Processor;
 using Logging.ThriftContract;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -28,9 +27,21 @@ namespace Logging.Server.Reciver
 
             queue = new BlockingActionQueue<TLogPackage>(processTaskNum, (logPackage) =>
             {
+                ProcessPackage(logPackage);
+            }, blockingQueueLength);
+        }
+
+        private static void ProcessPackage(TLogPackage logPackage)
+        {
+            try
+            {
                 ProcessLog(logPackage);
                 ProcessMetric(logPackage);
-            }, blockingQueueLength);
+            }
+            catch (Exception ex)
+            {
+              //  FileLogger.Log(ex);
+            }
         }
 
         private static void ProcessLog(TLogPackage logPackage)
@@ -118,10 +129,9 @@ namespace Logging.Server.Reciver
         {
             int over_count = queue.Enqueue(logPackage);
 
-
-
             //sizeof(logPackage)
             //logPackage.
+
             #region 溢出处理
 
             if (over_count > 0)
@@ -191,7 +201,6 @@ namespace Logging.Server.Reciver
             catch (Exception) { str = string.Empty; }
             return str;
         }
-
 
         #endregion 私有成员
     }

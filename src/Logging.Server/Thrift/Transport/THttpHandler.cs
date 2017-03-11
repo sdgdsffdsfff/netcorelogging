@@ -89,7 +89,7 @@ namespace Thrift.Transport
             }
             finally
             {
-                transport.Close();
+                transport?.Close();
             }
         }
 

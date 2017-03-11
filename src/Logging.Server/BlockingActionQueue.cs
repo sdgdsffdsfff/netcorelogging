@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
+
 namespace Logging.Server
 {
     /// <summary>
@@ -11,7 +10,6 @@ namespace Logging.Server
     /// <typeparam name="T"></typeparam>
     internal class BlockingActionQueue<T>
     {
-
         ///// <summary>
         ///// 当前队列长度
         ///// </summary>
@@ -27,7 +25,6 @@ namespace Logging.Server
         /// 阻塞队列的最大长度
         /// </summary>
         private int QueueMaxLength { get; set; }
-
 
         /// <summary>
         /// 多线程消费队列
@@ -47,7 +44,7 @@ namespace Logging.Server
             for (int i = 0; i < taskNum; i++)
             {
                 int temp_i = i;
-                this.Tasks[temp_i] = Task.Factory.StartNew(this.DequeueProcess);
+                this.Tasks[temp_i] = Task.Factory.StartNew(this.DequeueProcess, TaskCreationOptions.LongRunning);
             }
         }
 
@@ -84,18 +81,10 @@ namespace Logging.Server
                     T item = s_Queue.Take();
 
                     this.Action(item);
-                    //  Console.WriteLine("again");
-
                 }
-                //catch (TException tae)
-                //{
-                //    //Thread.ResetAbort();
-                //    FileLogger.Log(tae);
-                //    //do exception...
-                //}
                 catch (Exception ex)
                 {
-                    FileLogger.Log(ex);
+                    //  FileLogger.Log(ex);
                 }
             }
         }

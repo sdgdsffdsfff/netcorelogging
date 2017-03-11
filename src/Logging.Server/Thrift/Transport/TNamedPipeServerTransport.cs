@@ -129,7 +129,7 @@ namespace Thrift.Transport
 
             protected override void Dispose(bool disposing)
             {
-                server.Dispose();
+                server?.Dispose();
             }
         }
     }
