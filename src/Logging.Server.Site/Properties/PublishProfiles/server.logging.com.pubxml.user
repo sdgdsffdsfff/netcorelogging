@@ -6,6 +6,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\workstudio\NetCoreLogging\src\Logging.Server.Site\.\bin\Release\server.netcorelogging.com</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\workstudio\netcorelogging\src\Logging.Server.Site\.\bin\Release\server.netcorelogging.com</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

@@ -12,7 +12,7 @@ namespace Logging.Server.Site
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://*:88/server")
+                .UseUrls("http://0.0.0.0:88/server")
                 .Build();
 
             //  var host = webHost.Build();
