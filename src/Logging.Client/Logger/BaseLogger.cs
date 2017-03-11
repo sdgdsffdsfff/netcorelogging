@@ -238,7 +238,7 @@ namespace Logging.Client
 
             if (level == LogLevel.Debug && onOff.Debug != 1) { return; }
             if (level == LogLevel.Info && onOff.Info != 1) { return; }
-            if (level == LogLevel.Warm && onOff.Warm != 1) { return; }
+            if (level == LogLevel.Warm && onOff.Warn != 1) { return; }
             if (level == LogLevel.Error && onOff.Error != 1) { return; }
 
             LogEntity log = this.CreateLog(Source, title, message, tags, level);
